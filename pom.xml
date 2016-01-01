@@ -27,9 +27,9 @@
 			<version>4.12</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>${jettyVersion}</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0-b01</version>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>

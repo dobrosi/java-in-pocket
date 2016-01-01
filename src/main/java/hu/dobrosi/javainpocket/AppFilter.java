@@ -13,24 +13,25 @@ import javax.servlet.annotation.WebFilter;
 
 import org.reflections.Reflections;
 
-@WebFilter("/*")
-class AppFilter implements Filter {
+import hu.dobrosi.javainpocket.example.MainApplication;
 
-	Reflections reflections = new Reflections("");
+@WebFilter("/event/*")
+public class AppFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		Application app = searchApplication(request);
 
 		if (app == null) {
-			chain.doFilter(request, response);
+//			chain.doFilter(request, response);
 		} else {
-			app.start();
 		}
+		response.getOutputStream().write("alert(19)".getBytes());
+
 	}
 
 	private Application searchApplication(ServletRequest request) {
-
+		Reflections reflections = new Reflections("");
 		Set<Class<? extends Application>> apps = reflections.getSubTypesOf(Application.class);
 
 		apps.forEach(s -> System.out.println(s));

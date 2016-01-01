@@ -1,16 +1,37 @@
 <!doctype html>
 <html>
 <head>
-<title>TEST</title>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/loading.css">
+    <title>My Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    
+    <script>
+    jQuery(document).ready(function($) {
+    	$.ajax({
+		  url: "event?type=init"
+		}).done(function( data ) {
+ 		  eval(data);
+ 		});
+    });
+    </script>
 </head>
 <body>
-	<div class="cssload-thecube" id="loadingDiv">
-		<div class="cssload-cube cssload-c1"></div>
-		<div class="cssload-cube cssload-c2"></div>
-		<div class="cssload-cube cssload-c4"></div>
-		<div class="cssload-cube cssload-c3"></div>
-	</div>
+    <div data-role="page">
+ 
+        <div data-role="header">
+            <h1>My Title</h1>
+        </div><!-- /header -->
+ 
+        <div role="main" class="ui-content">
+            <p>Hello world</p>
+        </div><!-- /content -->
+ 
+        <div data-role="footer">
+            <h4>My Footer</h4>
+        </div><!-- /footer -->
+ 
+    </div><!-- /page -->
 </body>
 </html>
