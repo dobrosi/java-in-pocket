@@ -13,8 +13,6 @@ import javax.servlet.annotation.WebFilter;
 
 import org.reflections.Reflections;
 
-import hu.dobrosi.javainpocket.example.MainApplication;
-
 @WebFilter("/event/*")
 public class AppFilter implements Filter {
 
