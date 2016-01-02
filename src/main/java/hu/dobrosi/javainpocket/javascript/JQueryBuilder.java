@@ -43,6 +43,11 @@ public class JQueryBuilder {
 		return call(targetVariable, getQuery(getSelector(object)), method, args);
 	}
 
+
+	public static String css(Component object, String name, String value) {
+		return call(null, object, "css", name, value);
+	}
+	
 	private static String getQuery(String selector) {
 		return "$(\"" + selector + "\")";
 	}

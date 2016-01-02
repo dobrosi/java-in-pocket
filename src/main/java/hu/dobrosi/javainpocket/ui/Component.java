@@ -20,12 +20,20 @@ public class Component {
 	private List<ClickListener> clickListeners = new ArrayList<>();
 
 	private String width;
-	
+
 	private String height;
 
 	private String backgroundColor;
 
 	private String textColor;
+
+	private String left;
+
+	private String top;
+
+	private boolean visible;
+
+	private boolean enable;
 
 	public Component() {
 		ApplicationContext.components.put(getId(), this);
@@ -70,11 +78,15 @@ public class Component {
 		if (this instanceof Panel) {
 			Panel p = (Panel) this;
 			if (Panel.Layout.HORIZONTAL.equals(p.getLayout())) {
-				JQueryBuilder.call(null, component, "css", "float", "left");
+				component.css("float", "left");
 			}
 		}
 		component.setParent(this);
 		components.add(component);
+	}
+
+	public void css(String name, String value) {
+		JQueryBuilder.css(this, name, value);
 	}
 
 	public void addComponent(int index, Component component) {
@@ -108,7 +120,7 @@ public class Component {
 	}
 
 	public void setBackgroundColor(String backgroundColor) {
-		JQueryBuilder.call(null, this, "css", "background-color", backgroundColor);
+		css("background-color", backgroundColor);
 		this.backgroundColor = backgroundColor;
 	}
 
@@ -117,7 +129,7 @@ public class Component {
 	}
 
 	public void setTextColor(String textColor) {
-		JQueryBuilder.call(null, this, "css", "color", textColor);
+		css("color", textColor);
 		this.textColor = textColor;
 	}
 
@@ -126,7 +138,7 @@ public class Component {
 	}
 
 	public void setWidth(String width) {
-		JQueryBuilder.call(null, this, "css", "width", width);
+		css("width", width);
 		this.width = width;
 	}
 
@@ -135,7 +147,41 @@ public class Component {
 	}
 
 	public void setHeight(String height) {
-		JQueryBuilder.call(null, this, "css", "height", height);
+		css("height", height);
 		this.height = height;
+	}
+
+	public String getLeft() {
+		return left;
+	}
+
+	public void setLeft(String left) {
+		this.left = left;
+	}
+
+	public String getTop() {
+		return top;
+	}
+
+	public void setTop(String top) {
+		this.top = top;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		JQueryBuilder.call(null, this, visible ? "show" : "hide");
+		this.visible = visible;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		JQueryBuilder.call(null, this, "prop", "disabled", enable);
+		this.enable = enable;
 	}
 }

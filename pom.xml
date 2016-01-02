@@ -5,7 +5,7 @@
 	<groupId>hu.dobrosi</groupId>
 	<artifactId>java-in-pocket</artifactId>
 	<version>0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>Jetty HelloWorld</name>
 
 	<properties>
@@ -22,6 +22,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 			<version>0.9.10</version>
@@ -36,12 +41,6 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.0-b01</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>

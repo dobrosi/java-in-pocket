@@ -17,6 +17,10 @@ public class MainApplication implements Application {
 		Label label = new Label("Test label");
 		TextField textField = new TextField("Test input", "Test input value");
 		Button button = new Button("Send");
+		Button button1 = new Button("Show");
+		Button button2 = new Button("Hide");
+		Button button3 = new Button("Enable");
+		Button button4 = new Button("Disable");
 		Panel mainPanel = new Panel(Layout.HORIZONTAL);
 		
 		Label label1 = new Label("Label1");
@@ -25,6 +29,10 @@ public class MainApplication implements Application {
 		contentPanel.addComponent(label);
 		contentPanel.addComponent(textField);
 		contentPanel.addComponent(button);
+		contentPanel.addComponent(button1);
+		contentPanel.addComponent(button2);
+		contentPanel.addComponent(button3);
+		contentPanel.addComponent(button4);
 		contentPanel.addComponent(mainPanel);
 		
 		mainPanel.addComponent(label1);
@@ -39,6 +47,11 @@ public class MainApplication implements Application {
 			label.setBackgroundColor("gray");
 			label.setTextColor("white");
 			Browser.setTitle("Test application " + new Date());
-		});		
+		});
+		
+		button1.addClickListener(l -> textField.setVisible(true));
+		button2.addClickListener(l -> textField.setVisible(false));
+		button3.addClickListener(l -> textField.setEnable(true));
+		button4.addClickListener(l -> textField.setEnable(false));
 	}
 }
