@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    
+    <script>
+    jQuery(document).ready(function($) {
+    	ajaxEval("event?type=init");
+    });
+    
+    function click(o, cid) {
+    	ajaxEval("event?type=click&cid=" + cid );
+    }
+    
+    function change(o, cid) {
+    	ajaxEval("event?type=change&cid=" + cid + "&newValue=" + encodeURIComponent($("#" + cid).val()));
+    }
+    
+    function ajaxEval(url) {
+    	$.ajax({
+    		  url: url
+    		}).done(function( data ) {
+     		  eval(data);
+     		});
+    }
+    </script>
+</head>
+<body>
+    <div data-role="page">
+        <div role="main" class="ui-content" id="contentPanel"></div>
+    </div>
+</body>
+</html>
