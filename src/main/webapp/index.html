@@ -15,6 +15,13 @@
  		  eval(data);
  		});
     });
+    function click(o) {
+    	$.ajax({
+  		  url: "event?type=click"
+  		}).done(function( data ) {
+   		  eval(data);
+   		});
+    }
     </script>
 </head>
 <body>
@@ -24,7 +31,7 @@
             <h1>My Title</h1>
         </div><!-- /header -->
  
-        <div role="main" class="ui-content">
+        <div role="main" class="ui-content" id="contentPanel">
             <p>Hello world</p>
         </div><!-- /content -->
  

@@ -9,8 +9,8 @@ import hu.dobrosi.javainpocket.ui.input.TextField;
 public class MainApplication implements Application {
 	@Override
 	public void onLoad(Panel contentPanel) {
-		Label label = new Label("");
-		TextField textField = new TextField("");
+		Label label = new Label("Test label");
+		TextField textField = new TextField("Test input");
 		Button button = new Button("Send");
 
 		button.addClickListener(l -> {
