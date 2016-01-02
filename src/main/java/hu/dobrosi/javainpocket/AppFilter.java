@@ -1,6 +1,8 @@
 package hu.dobrosi.javainpocket;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -8,12 +10,14 @@ import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.reflections.Reflections;
 
 import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
@@ -24,7 +28,7 @@ import hu.dobrosi.javainpocket.ui.input.InputComponent;
 import hu.dobrosi.javainpocket.ui.listener.ChangeEvent;
 import hu.dobrosi.javainpocket.ui.listener.ClickEvent;
 
-@WebFilter("/event/*")
+@WebFilter("/*")
 public class AppFilter implements Filter {
 	private Class<? extends Application> appClass;
 
@@ -34,6 +38,31 @@ public class AppFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
+		String contextPath = httpServletRequest.getContextPath();
+		String uri = httpServletRequest.getRequestURI();
+		uri = uri.replaceAll(contextPath, "");
+
+		if(uri.contains("/event")) {
+			event(response, httpServletRequest);
+		} else {
+			ServletContext context = request.getServletContext();
+			resource(uri, context, response);
+		}
+
+	}
+
+	private void resource(String uri, ServletContext context, ServletResponse response) {
+		System.out.println(uri);
+		InputStream resourceContent = this.getClass().getClassLoader()
+                .getResourceAsStream("index.html");
+		try {
+			IOUtils.copy(resourceContent, response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void event(ServletResponse response, HttpServletRequest httpServletRequest) throws IOException {
 		Application app = searchApplication(httpServletRequest);
 
 		String type = httpServletRequest.getParameter("type");
@@ -70,7 +99,6 @@ public class AppFilter implements Filter {
 			js = JQueryBuilder.getJavaScript();
 			response.getOutputStream().write(js.getBytes());
 		}
-
 	}
 
 	private Application searchApplication(HttpServletRequest httpServletRequest) {

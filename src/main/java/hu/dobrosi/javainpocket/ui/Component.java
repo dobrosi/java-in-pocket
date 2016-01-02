@@ -19,6 +19,10 @@ public class Component {
 
 	private List<ClickListener> clickListeners = new ArrayList<>();
 
+	private String width;
+	
+	private String height;
+
 	private String backgroundColor;
 
 	private String textColor;
@@ -40,11 +44,15 @@ public class Component {
 	}
 
 	public void addComponent(Component component) {
-		if(component.getParent() != null) {
+		if (component.getParent() != null) {
 			throw new RuntimeException("This component has already other parent.");
 		}
 		Object cid = component.getId();
-		if (component instanceof Label) {
+		if (component instanceof Panel) {
+			Panel p = (Panel) component;
+			JQueryBuilder.call("o", this, "append", "<div id='" + cid + "'></div>");
+			JQueryBuilder.call(null, p, "css", "display", "clear");
+		} else if (component instanceof Label) {
 			Label l = (Label) component;
 			JQueryBuilder.call("o", this, "append", "<div id='" + cid + "'>" + l.getCaption() + "</div>");
 		} else if (component instanceof Button) {
@@ -58,6 +66,12 @@ public class Component {
 		}
 		if (component instanceof InputComponent) {
 			JQueryBuilder.call(null, this, "change", new Function("o", "change(o," + component.getId() + ");"));
+		}
+		if (this instanceof Panel) {
+			Panel p = (Panel) this;
+			if (Panel.Layout.HORIZONTAL.equals(p.getLayout())) {
+				JQueryBuilder.call(null, component, "css", "float", "left");
+			}
 		}
 		component.setParent(this);
 		components.add(component);
@@ -105,5 +119,23 @@ public class Component {
 	public void setTextColor(String textColor) {
 		JQueryBuilder.call(null, this, "css", "color", textColor);
 		this.textColor = textColor;
+	}
+
+	public String getWidth() {
+		return width;
+	}
+
+	public void setWidth(String width) {
+		JQueryBuilder.call(null, this, "css", "width", width);
+		this.width = width;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		JQueryBuilder.call(null, this, "css", "height", height);
+		this.height = height;
 	}
 }
