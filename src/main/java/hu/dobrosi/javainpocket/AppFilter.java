@@ -16,8 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.reflections.Reflections;
 
+import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
+import hu.dobrosi.javainpocket.ui.Component;
 import hu.dobrosi.javainpocket.ui.Panel;
 import hu.dobrosi.javainpocket.ui.Panel.Layout;
+import hu.dobrosi.javainpocket.ui.input.InputComponent;
+import hu.dobrosi.javainpocket.ui.listener.ChangeEvent;
+import hu.dobrosi.javainpocket.ui.listener.ClickEvent;
 
 @WebFilter("/event/*")
 public class AppFilter implements Filter {
@@ -32,6 +37,10 @@ public class AppFilter implements Filter {
 		Application app = searchApplication(httpServletRequest);
 
 		String type = httpServletRequest.getParameter("type");
+		String eventObject = httpServletRequest.getParameter("eventObject");
+		Object cid = httpServletRequest.getParameter("cid");
+		cid = cid == null ? null : Integer.parseInt(cid.toString());
+		Component component = cid == null ? null : ApplicationContext.components.get(cid);
 
 		if (app == null) {
 			// chain.doFilter(request, response);
@@ -45,14 +54,20 @@ public class AppFilter implements Filter {
 					}
 				};
 				app.onLoad(contentPanel);
-				js = JQueryBuilder.getJavaScript();
 			} else if ("click".equals(type)) {
-				js = "alert('onClick')";
+				ClickEvent clickEvent = new ClickEvent();
+				component.onClick(clickEvent);
 			} else if ("change".equals(type)) {
-				js = "alert('onChange')";
+				InputComponent<Object> inputComponent = (InputComponent) component;
+				ChangeEvent<Object> changeEvent = new ChangeEvent<>();
+				changeEvent.oldValue = inputComponent.getValue();
+				changeEvent.newValue = httpServletRequest.getParameter("newValue");
+				System.out.println("newValue: " + changeEvent.newValue);
+				inputComponent.onChange(changeEvent);
 			} else {
 				js = "alert('hiba')";
 			}
+			js = JQueryBuilder.getJavaScript();
 			response.getOutputStream().write(js.getBytes());
 		}
 
