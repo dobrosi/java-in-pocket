@@ -54,10 +54,12 @@ public class MainApplication implements Application {
 		button3.addClickListener(l -> {
 			textField.setEnable(true);
 			button.setEnable(true);
+			label1.setVisible(true);
 		});
 		button4.addClickListener(l -> {
 			textField.setEnable(false);
 			button.setEnable(false);
+			label1.setVisible(false);
 		});
 	}
 }

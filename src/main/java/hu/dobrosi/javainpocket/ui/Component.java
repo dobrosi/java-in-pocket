@@ -58,11 +58,11 @@ public class Component {
 		Object cid = component.getId();
 		if (component instanceof Panel) {
 			Panel p = (Panel) component;
-			JQueryBuilder.call("o", this, "append", "<div id='" + cid + "'></div>");
+			JQueryBuilder.call("o", this, "append", "<div><div id='" + cid + "'></div></div>");
 			JQueryBuilder.call(null, p, "css", "display", "clear");
 		} else if (component instanceof Label) {
 			Label l = (Label) component;
-			JQueryBuilder.call("o", this, "append", "<div id='" + cid + "'>" + l.getCaption() + "</div>");
+			JQueryBuilder.call("o", this, "append", "<div><p id='" + cid + "'>" + l.getCaption() + "</p></div>");
 		} else if (component instanceof Button) {
 			Button b = (Button) component;
 			JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='button' value='" + b.getCaption() + "'></input>");
@@ -172,7 +172,8 @@ public class Component {
 	}
 
 	public void setVisible(boolean visible) {
-		JQueryBuilder.call(null, this, visible ? "show" : "hide");
+		//JQueryBuilder.call(null, this, visible ? "show" : "hide");
+		JQueryBuilder.call(null, this, "parent().css", "visibility", visible ? "visible" : "hidden");
 		this.visible = visible;
 	}
 
