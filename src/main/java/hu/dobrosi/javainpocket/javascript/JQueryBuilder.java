@@ -28,6 +28,8 @@ public class JQueryBuilder {
 				res += "\"" + arg + "\"";
 			} else if (arg instanceof String) {
 				res += arg;
+			} else {
+				res += arg;
 			}
 			i++;
 			if (i < args.length) {

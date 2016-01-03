@@ -181,7 +181,7 @@ public class Component {
 	}
 
 	public void setEnable(boolean enable) {
-		JQueryBuilder.call(null, this, "prop", "disabled", enable);
+		JQueryBuilder.call(null, this, "prop", "disabled", !enable);
 		this.enable = enable;
 	}
 }
