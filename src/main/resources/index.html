@@ -20,10 +20,12 @@
     }
     
     function ajaxEval(url) {
+    	$('#loading').show();
     	$.ajax({
     		  url: url
     		}).done(function( data ) {
      		  eval(data);
+     		 $('#loading').hide();
      		});
     }
     </script>
@@ -31,6 +33,9 @@
 <body>
     <div data-role="page">
         <div role="main" class="ui-content" id="contentPanel"></div>
+    </div>
+    <div id="loading" style="background: gray; width: 100%; height: 100%; position: fixed; text-align: center; padding: 100px;">
+    	Loading...
     </div>
 </body>
 </html>

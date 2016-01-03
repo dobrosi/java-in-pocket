@@ -1,5 +1,7 @@
 package hu.dobrosi.javainpocket.ui;
 
+import java.util.Arrays;
+
 public class Panel extends Component {
 	public enum Layout {
 		FIX_POSITION, HORIZONTAL, VERTICAL
@@ -11,6 +13,11 @@ public class Panel extends Component {
 		this(Layout.VERTICAL);
 	}
 
+	public Panel(Component... components) {
+		this();
+		Arrays.asList(components).forEach(c -> this.addComponent(c));
+	}
+	
 	public Panel(Layout layout) {
 		super();
 		this.layout = layout;
