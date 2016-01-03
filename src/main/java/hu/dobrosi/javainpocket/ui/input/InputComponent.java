@@ -12,10 +12,12 @@ import hu.dobrosi.javainpocket.ui.listener.ChangeListener;
 public class InputComponent<T> extends Component {
 	private List<ChangeListener> changeListeners = new ArrayList<>();
 	
-	protected String caption;
+	private String caption;
 
-	protected T value;
+	private T value;
 
+	private boolean enable;
+	
 	public InputComponent() {
 		super();
 	}
@@ -59,5 +61,14 @@ public class InputComponent<T> extends Component {
 	public void onChange(ChangeEvent<T> changeEvent) {
 		value = changeEvent.newValue;
 		changeListeners.forEach(cl -> cl.onChange(changeEvent));
+	}
+	
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		JQueryBuilder.call(null, this, "prop", "disabled", !enable);
+		this.enable = enable;
 	}
 }

@@ -5,12 +5,13 @@ import java.util.Date;
 import hu.dobrosi.javainpocket.Application;
 import hu.dobrosi.javainpocket.javascript.Browser;
 import hu.dobrosi.javainpocket.ui.Label;
+import hu.dobrosi.javainpocket.ui.ListView;
 import hu.dobrosi.javainpocket.ui.Panel;
 import hu.dobrosi.javainpocket.ui.Panel.Layout;
 import hu.dobrosi.javainpocket.ui.input.Button;
 import hu.dobrosi.javainpocket.ui.input.TextField;
 
-public class MainApplication implements Application {
+public class TestApplication implements Application {
 	@Override
 	public void onLoad(Panel contentPanel) {
 		
@@ -22,6 +23,7 @@ public class MainApplication implements Application {
 		Button button3 = new Button("Enable");
 		Button button4 = new Button("Disable");
 		Panel mainPanel = new Panel(Layout.HORIZONTAL);
+		ListView listView = new ListView();
 		
 		Label label1 = new Label("Label1");
 		Label label2 = new Label("Label2");
@@ -34,6 +36,7 @@ public class MainApplication implements Application {
 		contentPanel.addComponent(button3);
 		contentPanel.addComponent(button4);
 		contentPanel.addComponent(mainPanel);
+		contentPanel.addComponent(listView);
 		
 		mainPanel.addComponent(label1);
 		mainPanel.addComponent(label2);
@@ -61,5 +64,11 @@ public class MainApplication implements Application {
 			button.setEnable(false);
 			label1.setVisible(false);
 		});
+		
+		listView.addItem("Alpha");
+		listView.addItem("Beta");
+		listView.addItem("<b>Gamma</b><p>test</p>");
+		listView.addItem("Delta");
+		listView.addItem("Omega");
 	}
 }

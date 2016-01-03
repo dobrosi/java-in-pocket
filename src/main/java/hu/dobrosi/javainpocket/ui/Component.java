@@ -33,8 +33,6 @@ public class Component {
 
 	private boolean visible;
 
-	private boolean enable;
-
 	public Component() {
 		ApplicationContext.components.put(getId(), this);
 	}
@@ -56,21 +54,25 @@ public class Component {
 			throw new RuntimeException("This component has already other parent.");
 		}
 		Object cid = component.getId();
-		if (component instanceof Panel) {
-			Panel p = (Panel) component;
-			JQueryBuilder.call("o", this, "append", "<div><div id='" + cid + "'></div></div>");
-			JQueryBuilder.call(null, p, "css", "display", "clear");
+		if (component instanceof Button) {
+			Button b = (Button) component;
+			JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='button' value='" + b.getCaption() + "'></input>");
+		} else if (component instanceof Image) {
+			Image i = (Image) component;
+			JQueryBuilder.call("o", this, "append", "<div><img id='" + cid + "' src='" + i.getUrl() + "'></img></div>");
 		} else if (component instanceof Label) {
 			Label l = (Label) component;
 			JQueryBuilder.call("o", this, "append", "<div><p id='" + cid + "'>" + l.getCaption() + "</p></div>");
-		} else if (component instanceof Button) {
-			Button b = (Button) component;
-			JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='button' value='" + b.getCaption() + "'></input>");
-			JQueryBuilder.call(null, this, "trigger", "create");
+		} else if (component instanceof ListView) {
+			ListView l = (ListView) component;
+			JQueryBuilder.call("o", this, "append", "<ul id='" + cid + "' data-role='listview'></ul>");
+		} else if (component instanceof Panel) {
+			Panel p = (Panel) component;
+			JQueryBuilder.call("o", this, "append", "<div><div id='" + cid + "'></div></div>");
+			JQueryBuilder.call(null, p, "css", "display", "clear");
 		} else if (component instanceof TextField) {
 			TextField tf = (TextField) component;
 			JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='text' value='" + tf.getValue() + "'></input>");
-			JQueryBuilder.call(null, this, "trigger", "create");
 		}
 		if (component instanceof InputComponent) {
 			JQueryBuilder.call(null, this, "change", new Function("o", "change(o," + component.getId() + ");"));
@@ -81,6 +83,7 @@ public class Component {
 				component.css("float", "left");
 			}
 		}
+		JQueryBuilder.call(null, this, "trigger", "create");
 		component.setParent(this);
 		components.add(component);
 	}
@@ -172,17 +175,8 @@ public class Component {
 	}
 
 	public void setVisible(boolean visible) {
-		//JQueryBuilder.call(null, this, visible ? "show" : "hide");
+		// JQueryBuilder.call(null, this, visible ? "show" : "hide");
 		JQueryBuilder.call(null, this, "parent().css", "visibility", visible ? "visible" : "hidden");
 		this.visible = visible;
-	}
-
-	public boolean isEnable() {
-		return enable;
-	}
-
-	public void setEnable(boolean enable) {
-		JQueryBuilder.call(null, this, "prop", "disabled", !enable);
-		this.enable = enable;
 	}
 }
