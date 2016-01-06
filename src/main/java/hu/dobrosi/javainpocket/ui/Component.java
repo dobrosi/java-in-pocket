@@ -32,14 +32,14 @@ public abstract class Component {
 	private boolean visible;
 
 	public Component() {
-		ApplicationContext.components.put(getId(), this);
+		ApplicationContext.components.put(getId().toString(), this);
 		create();
 	}
 
 	public abstract void create();
 
 	public Object getId() {
-		return hashCode();
+		return "c" + hashCode();
 	}
 
 	protected Component getParent() {
@@ -59,7 +59,7 @@ public abstract class Component {
 		JQueryBuilder.call(null, "o", "appendTo", this);
 
 		if (component instanceof InputComponent) {
-			JQueryBuilder.call(null, this, "change", new Function("o", "change(o," + component.getId() + ");"));
+			JQueryBuilder.call(null, this, "change", new Function("o", "change(o,\"" + component.getId() + "\");"));
 		}
 		if (this instanceof Panel) {
 			Panel p = (Panel) this;
@@ -90,7 +90,7 @@ public abstract class Component {
 	}
 
 	public void addClickListener(ClickListener clickListener) {
-		JQueryBuilder.call(null, this, "click", new Function("o", "click(o," + getId() + ");"));
+		JQueryBuilder.call(null, this, "click", new Function("o", "click(o,\"" + getId() + "\");"));
 		clickListeners.add(clickListener);
 	}
 

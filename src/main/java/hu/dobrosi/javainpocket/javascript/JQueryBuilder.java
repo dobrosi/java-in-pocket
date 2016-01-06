@@ -10,7 +10,7 @@ public class JQueryBuilder {
 		javaScript += script;
 		return script;
 	}
-	
+
 	public static String call(String targetVariable, String object, String method, Object... args) {
 		String res = "";
 		if (targetVariable != null) {
@@ -20,10 +20,8 @@ public class JQueryBuilder {
 		int i = 0;
 		for (Object arg : args) {
 			if (arg instanceof Component) {
-				arg = getSelector((Component) arg);
-			}
-
-			if (arg instanceof Function) {
+				res += "\"" + getSelector((Component) arg) + "\"";
+			} else if (arg instanceof Function) {
 				Function f = (Function) arg;
 				res += "function(" + f.getArgumentPart() + " ){" + f.getBody() + "}";
 			} else if (arg instanceof String) {
@@ -47,11 +45,10 @@ public class JQueryBuilder {
 		return call(targetVariable, getQuery(getSelector(object)), method, args);
 	}
 
-
 	public static String css(Component object, String name, String value) {
 		return call(null, object, "css", name, value);
 	}
-	
+
 	private static String getQuery(String selector) {
 		return "$(\"" + selector + "\")";
 	}

@@ -64,9 +64,9 @@ public class AppFilter implements Filter {
 		Application app = searchApplication(httpServletRequest);
 
 		String type = httpServletRequest.getParameter("type");
-		String eventObject = httpServletRequest.getParameter("eventObject");
-		Object cid = httpServletRequest.getParameter("cid");
-		cid = cid == null ? null : Integer.parseInt(cid.toString());
+
+		String cid = httpServletRequest.getParameter("cid");
+		cid = cid == null ? null : cid;
 		Component component = cid == null ? null : ApplicationContext.components.get(cid);
 
 		if (app == null) {
