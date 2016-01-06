@@ -35,4 +35,9 @@ public class ListView extends Component {
 		items.add(res);
 		return res;
 	}
+
+	@Override
+	public void create() {
+		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<ul id='" + getId() + "' data-role='listview'></ul>");
+	}
 }

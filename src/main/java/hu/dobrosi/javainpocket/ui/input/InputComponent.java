@@ -9,27 +9,35 @@ import hu.dobrosi.javainpocket.ui.Component;
 import hu.dobrosi.javainpocket.ui.listener.ChangeEvent;
 import hu.dobrosi.javainpocket.ui.listener.ChangeListener;
 
-public class InputComponent<T> extends Component {
+public abstract class InputComponent<T> extends Component {
 	private List<ChangeListener> changeListeners = new ArrayList<>();
-	
+
 	private String caption;
 
 	private T value;
 
 	private boolean enable;
-	
+
 	public InputComponent() {
 		super();
 	}
 
+	@Override
+	public void create() {
+		Object v = this.getValue() == null ? "" : this.getValue();
+		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<input id='" + this.getId() + "' type='" + getInputComponenType() + "' value='" + v + "'></input>");
+	}
+
+	public abstract String getInputComponenType();
+
 	public InputComponent(String caption) {
 		this();
-		this.caption = caption;
+		setCaption(caption);
 	}
 
 	public InputComponent(String caption, T defaultValue) {
 		this(caption);
-		this.value = defaultValue;
+		setValue(defaultValue);
 	}
 
 	public String getCaption() {
@@ -62,7 +70,7 @@ public class InputComponent<T> extends Component {
 		value = changeEvent.newValue;
 		changeListeners.forEach(cl -> cl.onChange(changeEvent));
 	}
-	
+
 	public boolean isEnable() {
 		return enable;
 	}

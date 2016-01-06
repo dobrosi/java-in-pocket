@@ -7,7 +7,7 @@ public class Label extends Component {
 
 	public Label(String caption) {
 		super();
-		this.caption = caption;
+		setCaption(caption);
 	}
 
 	public String getCaption() {
@@ -17,5 +17,10 @@ public class Label extends Component {
 	public void setCaption(String caption) {
 		JQueryBuilder.call(null, this, "html", caption);
 		this.caption = caption;
+	}
+
+	@Override
+	public void create() {
+		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div><p id='" + getId() + "'>" + getCaption() + "</p></div>");
 	}
 }

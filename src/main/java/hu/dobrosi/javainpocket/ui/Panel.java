@@ -1,7 +1,5 @@
 package hu.dobrosi.javainpocket.ui;
 
-import java.util.Arrays;
-
 import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
 
 public class Panel extends Component {
@@ -22,12 +20,9 @@ public class Panel extends Component {
 
 	public Panel(Layout layout, Component... components) {
 		super();
-		this.layout = layout;
-		
-		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div><div id='" + getId() + "'></div></div>");
-		JQueryBuilder.call(null, this, "css", "display", "clear");
+		setLayout(layout);
 
-		Arrays.asList(components).forEach(c -> this.addComponent(c));
+		//Arrays.asList(components).forEach(c -> this.addComponent(c));
 	}
 
 	public Layout getLayout() {
@@ -36,5 +31,11 @@ public class Panel extends Component {
 
 	public void setLayout(Layout layout) {
 		this.layout = layout;
+	}
+
+	@Override
+	public void create() {
+		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div id='" + getId() + "'></div>");
+		css("display", "clear");
 	}
 }

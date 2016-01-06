@@ -6,13 +6,11 @@ import java.util.List;
 import hu.dobrosi.javainpocket.ApplicationContext;
 import hu.dobrosi.javainpocket.javascript.Function;
 import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
-import hu.dobrosi.javainpocket.ui.input.Button;
 import hu.dobrosi.javainpocket.ui.input.InputComponent;
-import hu.dobrosi.javainpocket.ui.input.TextField;
 import hu.dobrosi.javainpocket.ui.listener.ClickEvent;
 import hu.dobrosi.javainpocket.ui.listener.ClickListener;
 
-public class Component {
+public abstract class Component {
 	private Component parent;
 
 	private List<Component> components = new ArrayList<>();
@@ -35,7 +33,10 @@ public class Component {
 
 	public Component() {
 		ApplicationContext.components.put(getId(), this);
+		create();
 	}
+
+	public abstract void create();
 
 	public Object getId() {
 		return hashCode();
@@ -53,26 +54,10 @@ public class Component {
 		if (component.getParent() != null) {
 			throw new RuntimeException("This component has already other parent.");
 		}
-		Object cid = component.getId();
-		if (component instanceof Button || component instanceof Panel) {
-			//JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='button' value='" + b.getCaption() + "'></input>");
 
-			//JQueryBuilder.call(null, "$('nullPanel')", "trigger", "create");
-			JQueryBuilder.call("o", "$('#nullPanel')", "detach", component);
-			JQueryBuilder.call(null, "o", "appendTo", this);
-		} else if (component instanceof Image) {
-			Image i = (Image) component;
-			JQueryBuilder.call("o", this, "append", "<div><img id='" + cid + "' src='" + i.getUrl() + "'></img></div>");
-		} else if (component instanceof Label) {
-			Label l = (Label) component;
-			JQueryBuilder.call("o", this, "append", "<div><p id='" + cid + "'>" + l.getCaption() + "</p></div>");
-		} else if (component instanceof ListView) {
-			ListView l = (ListView) component;
-			JQueryBuilder.call("o", this, "append", "<ul id='" + cid + "' data-role='listview'></ul>");
-		} else if (component instanceof TextField) {
-			TextField tf = (TextField) component;
-			JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='text' value='" + tf.getValue() + "'></input>");
-		}
+		JQueryBuilder.call("o", "$('#nullPanel')", "detach", component);
+		JQueryBuilder.call(null, "o", "appendTo", this);
+
 		if (component instanceof InputComponent) {
 			JQueryBuilder.call(null, this, "change", new Function("o", "change(o," + component.getId() + ");"));
 		}

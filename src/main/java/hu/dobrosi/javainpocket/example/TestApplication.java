@@ -9,14 +9,16 @@ import hu.dobrosi.javainpocket.ui.ListView;
 import hu.dobrosi.javainpocket.ui.Panel;
 import hu.dobrosi.javainpocket.ui.Panel.Layout;
 import hu.dobrosi.javainpocket.ui.input.Button;
+import hu.dobrosi.javainpocket.ui.input.PasswordField;
 import hu.dobrosi.javainpocket.ui.input.TextField;
 
 public class TestApplication implements Application {
 	@Override
 	public void onLoad(Panel contentPanel) {
-		
+
 		Label label = new Label("Test label");
 		TextField textField = new TextField("Test input", "Test input value");
+		PasswordField passwordField = new PasswordField("Test input");
 		Button button = new Button("Send");
 		Button button1 = new Button("Show");
 		Button button2 = new Button("Hide");
@@ -26,10 +28,14 @@ public class TestApplication implements Application {
 		
 		Label label1 = new Label("Label1");
 		Label label2 = new Label("Label2");
+
+
 		Panel mainPanel = new Panel(Layout.HORIZONTAL, label1, label2);
+		mainPanel.addComponent(label1);
 			
 		contentPanel.addComponent(label);
 		contentPanel.addComponent(textField);
+		contentPanel.addComponent(passwordField);
 		contentPanel.addComponent(button);
 		contentPanel.addComponent(button1);
 		contentPanel.addComponent(button2);
@@ -38,10 +44,11 @@ public class TestApplication implements Application {
 		contentPanel.addComponent(mainPanel);
 		contentPanel.addComponent(listView);
 		
+		
 		mainPanel.setWidth("500px");
 		label1.setWidth("150px");
 		label2.setWidth("150px");
-
+		
 		button.addClickListener(l -> {
 			label.setCaption(textField.getValue());
 			label.setBackgroundColor("gray");
@@ -67,5 +74,6 @@ public class TestApplication implements Application {
 		listView.addItem("<b>Gamma</b><p>test</p>");
 		listView.addItem("Delta");
 		listView.addItem("Omega");
+		
 	}
 }

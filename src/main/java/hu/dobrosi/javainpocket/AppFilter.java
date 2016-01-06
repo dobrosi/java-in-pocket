@@ -41,7 +41,7 @@ public class AppFilter implements Filter {
 		String uri = httpServletRequest.getRequestURI();
 		uri = uri.replaceAll(contextPath, "");
 
-		if(uri.contains("/event")) {
+		if (uri.contains("/event")) {
 			event(response, httpServletRequest);
 		} else {
 			ServletContext context = request.getServletContext();
@@ -52,8 +52,7 @@ public class AppFilter implements Filter {
 
 	private void resource(String uri, ServletContext context, ServletResponse response) {
 		System.out.println(uri);
-		InputStream resourceContent = this.getClass().getClassLoader()
-                .getResourceAsStream("index.html");
+		InputStream resourceContent = this.getClass().getClassLoader().getResourceAsStream("index.html");
 		try {
 			IOUtils.copy(resourceContent, response.getOutputStream());
 		} catch (IOException e) {
@@ -79,6 +78,10 @@ public class AppFilter implements Filter {
 					@Override
 					public Object getId() {
 						return "contentPanel";
+					}
+
+					@Override
+					public void create() {
 					}
 				};
 				app.onLoad(contentPanel);
