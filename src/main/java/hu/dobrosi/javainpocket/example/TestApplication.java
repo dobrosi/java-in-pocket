@@ -22,11 +22,11 @@ public class TestApplication implements Application {
 		Button button2 = new Button("Hide");
 		Button button3 = new Button("Enable");
 		Button button4 = new Button("Disable");
-		Panel mainPanel = new Panel(Layout.HORIZONTAL);
 		ListView listView = new ListView();
 		
 		Label label1 = new Label("Label1");
 		Label label2 = new Label("Label2");
+		Panel mainPanel = new Panel(Layout.HORIZONTAL, label1, label2);
 			
 		contentPanel.addComponent(label);
 		contentPanel.addComponent(textField);
@@ -37,9 +37,6 @@ public class TestApplication implements Application {
 		contentPanel.addComponent(button4);
 		contentPanel.addComponent(mainPanel);
 		contentPanel.addComponent(listView);
-		
-		mainPanel.addComponent(label1);
-		mainPanel.addComponent(label2);
 		
 		mainPanel.setWidth("500px");
 		label1.setWidth("150px");

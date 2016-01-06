@@ -54,9 +54,12 @@ public class Component {
 			throw new RuntimeException("This component has already other parent.");
 		}
 		Object cid = component.getId();
-		if (component instanceof Button) {
-			Button b = (Button) component;
-			JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='button' value='" + b.getCaption() + "'></input>");
+		if (component instanceof Button || component instanceof Panel) {
+			//JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='button' value='" + b.getCaption() + "'></input>");
+
+			//JQueryBuilder.call(null, "$('nullPanel')", "trigger", "create");
+			JQueryBuilder.call("o", "$('#nullPanel')", "detach", component);
+			JQueryBuilder.call(null, "o", "appendTo", this);
 		} else if (component instanceof Image) {
 			Image i = (Image) component;
 			JQueryBuilder.call("o", this, "append", "<div><img id='" + cid + "' src='" + i.getUrl() + "'></img></div>");
@@ -66,10 +69,6 @@ public class Component {
 		} else if (component instanceof ListView) {
 			ListView l = (ListView) component;
 			JQueryBuilder.call("o", this, "append", "<ul id='" + cid + "' data-role='listview'></ul>");
-		} else if (component instanceof Panel) {
-			Panel p = (Panel) component;
-			JQueryBuilder.call("o", this, "append", "<div><div id='" + cid + "'></div></div>");
-			JQueryBuilder.call(null, p, "css", "display", "clear");
 		} else if (component instanceof TextField) {
 			TextField tf = (TextField) component;
 			JQueryBuilder.call("o", this, "append", "<input id='" + cid + "' type='text' value='" + tf.getValue() + "'></input>");
