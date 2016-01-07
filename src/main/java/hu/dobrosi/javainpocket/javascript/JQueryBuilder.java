@@ -1,13 +1,11 @@
 package hu.dobrosi.javainpocket.javascript;
 
+import hu.dobrosi.javainpocket.ApplicationContextProvider;
 import hu.dobrosi.javainpocket.ui.Component;
 
 public class JQueryBuilder {
-
-	private static String javaScript = "";
-
 	public static String call(String script) {
-		javaScript += script;
+		ApplicationContextProvider.get().appendJavaScript(script);
 		return script;
 	}
 
@@ -37,7 +35,7 @@ public class JQueryBuilder {
 			}
 		}
 		res += ");";
-		javaScript += res;
+		ApplicationContextProvider.get().appendJavaScript(res);
 		return res;
 	}
 
@@ -55,11 +53,5 @@ public class JQueryBuilder {
 
 	public static String getSelector(Component object) {
 		return "#" + object.getId();
-	}
-
-	public static String getJavaScript() {
-		String res = javaScript;
-		javaScript = "";
-		return res;
 	}
 }

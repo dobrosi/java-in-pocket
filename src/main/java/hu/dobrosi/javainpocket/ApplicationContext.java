@@ -6,5 +6,14 @@ import java.util.Map;
 import hu.dobrosi.javainpocket.ui.Component;
 
 public class ApplicationContext {
-	public static Map<String, Component> components = new HashMap<>();
+	public Map<String, Component> components = new HashMap<>();
+	private String javaScript;
+
+	public void appendJavaScript(String js) {
+		javaScript += js;
+	}
+
+	public String getJavaScript() {
+		return javaScript;
+	}
 }

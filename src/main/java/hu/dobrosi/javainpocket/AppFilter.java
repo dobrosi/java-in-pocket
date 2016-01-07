@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.reflections.Reflections;
 
-import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
 import hu.dobrosi.javainpocket.ui.Component;
 import hu.dobrosi.javainpocket.ui.Panel;
 import hu.dobrosi.javainpocket.ui.Panel.Layout;
@@ -56,7 +55,10 @@ public class AppFilter implements Filter {
 
 	private void resource(String uri, ServletContext context, ServletResponse response) {
 		System.out.println(uri);
-		InputStream resourceContent = this.getClass().getClassLoader().getResourceAsStream("index.html");
+		if (uri.replace("/", "").equals("")) {
+			uri = "index.html";
+		}
+		InputStream resourceContent = this.getClass().getClassLoader().getResourceAsStream(uri);
 		try {
 			IOUtils.copy(resourceContent, response.getOutputStream());
 		} catch (IOException e) {
@@ -67,15 +69,18 @@ public class AppFilter implements Filter {
 	private void event(ServletResponse response, HttpServletRequest httpServletRequest) throws IOException {
 		Application app = searchApplication(httpServletRequest);
 
-		String type = httpServletRequest.getParameter("type");
-
-		String cid = httpServletRequest.getParameter("cid");
-		cid = cid == null ? null : cid;
-		Component component = cid == null ? null : ApplicationContext.components.get(cid);
-
 		if (app == null) {
 			// chain.doFilter(request, response);
+
 		} else {
+			String sessionId = httpServletRequest.getSession().getId();
+			ApplicationContext ctx = ApplicationContextProvider.get(sessionId);
+
+			String type = httpServletRequest.getParameter("type");
+			String cid = httpServletRequest.getParameter("cid");
+			cid = cid == null ? null : cid;
+			Component component = cid == null ? null : ctx.components.get(cid);
+
 			String js;
 			if ("init".equals(type)) {
 				Panel contentPanel = new Panel(Layout.FIX_POSITION) {
@@ -102,7 +107,7 @@ public class AppFilter implements Filter {
 			} else {
 				js = "alert('hiba')";
 			}
-			js = JQueryBuilder.getJavaScript();
+			js = ctx.getJavaScript();
 			System.out.println(js);
 			response.getOutputStream().write(js.getBytes());
 		}
