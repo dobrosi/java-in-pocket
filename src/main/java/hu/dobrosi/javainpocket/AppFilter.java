@@ -35,19 +35,23 @@ public class AppFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
-		String contextPath = httpServletRequest.getContextPath();
-		String uri = httpServletRequest.getRequestURI();
-		uri = uri.replaceAll(contextPath, "");
+		try {
+			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
-		if (uri.contains("/event")) {
-			event(response, httpServletRequest);
-		} else {
-			ServletContext context = request.getServletContext();
-			resource(uri, context, response);
+			String contextPath = httpServletRequest.getContextPath();
+			String uri = httpServletRequest.getRequestURI();
+			uri = uri.replaceAll(contextPath, "");
+
+			if (uri.contains("/event")) {
+				event(response, httpServletRequest);
+			} else {
+				ServletContext context = request.getServletContext();
+				resource(uri, context, response);
+			}
+		} catch (Exception exception) {
+			response.getOutputStream().write(("error('" + exception.getLocalizedMessage() + "');").getBytes());
 		}
-
 	}
 
 	private void resource(String uri, ServletContext context, ServletResponse response) {
