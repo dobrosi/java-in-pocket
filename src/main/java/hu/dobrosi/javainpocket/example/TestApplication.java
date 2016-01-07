@@ -4,7 +4,6 @@ import java.util.Date;
 
 import hu.dobrosi.javainpocket.Application;
 import hu.dobrosi.javainpocket.javascript.Browser;
-import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
 import hu.dobrosi.javainpocket.ui.Label;
 import hu.dobrosi.javainpocket.ui.ListView;
 import hu.dobrosi.javainpocket.ui.Panel;
@@ -31,10 +30,11 @@ public class TestApplication implements Application {
 		Label label2 = new Label("Label2");
 
 
-		Panel mainPanel = new Panel(Layout.HORIZONTAL, label1, label2);
+		Panel mainPanel = new Panel(Layout.HORIZONTAL, label2);
 		//mainPanel.addComponent(label1);
 			
 		contentPanel.addComponent(label);
+		contentPanel.addComponent(mainPanel);
 		contentPanel.addComponent(textField);
 		contentPanel.addComponent(passwordField);
 		contentPanel.addComponent(button);
@@ -42,7 +42,6 @@ public class TestApplication implements Application {
 		contentPanel.addComponent(button2);
 		contentPanel.addComponent(button3);
 		contentPanel.addComponent(button4);
-		contentPanel.addComponent(mainPanel);
 		contentPanel.addComponent(listView);
 		
 		
@@ -56,7 +55,7 @@ public class TestApplication implements Application {
 			label.setTextColor("white");
 			Browser.setTitle("Test application " + new Date());
 			
-			//mainPanel.addComponent(label1);
+			mainPanel.addComponent(label1);
 		});
 		
 		button1.addClickListener(l -> textField.setVisible(true));

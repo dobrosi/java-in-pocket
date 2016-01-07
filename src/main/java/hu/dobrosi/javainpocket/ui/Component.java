@@ -56,17 +56,21 @@ public abstract class Component {
 		}
 
 		JQueryBuilder.call("o", "$('#nullPanel')", "detach", component);
-		JQueryBuilder.call(null, "o", "appendTo", this);
+		JQueryBuilder.call(null, component, "appendTo", this);
 
 		if (component instanceof InputComponent) {
 			JQueryBuilder.call(null, this, "change", new Function("o", "change(o,\"" + component.getId() + "\");"));
 		}
+
 		if (this instanceof Panel) {
 			Panel p = (Panel) this;
 			if (Panel.Layout.HORIZONTAL.equals(p.getLayout())) {
 				component.css("float", "left");
+			} else {
+				JQueryBuilder.call(null, this, "append", "<div style='clear: both;'></div>");
 			}
 		}
+
 		JQueryBuilder.call(null, this, "trigger", "create");
 		component.setParent(this);
 		components.add(component);
