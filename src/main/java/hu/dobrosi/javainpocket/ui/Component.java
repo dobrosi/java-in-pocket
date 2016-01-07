@@ -3,7 +3,7 @@ package hu.dobrosi.javainpocket.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.dobrosi.javainpocket.ApplicationContext;
+import hu.dobrosi.javainpocket.ApplicationContextProvider;
 import hu.dobrosi.javainpocket.javascript.Function;
 import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
 import hu.dobrosi.javainpocket.ui.input.InputComponent;
@@ -32,7 +32,7 @@ public abstract class Component {
 	private boolean visible;
 
 	public Component() {
-		ApplicationContext.components.put(getId().toString(), this);
+		ApplicationContextProvider.get().components.put(getId().toString(), this);
 		create();
 	}
 
