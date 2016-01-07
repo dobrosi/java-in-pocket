@@ -13,7 +13,9 @@ public class ApplicationContext {
 		javaScript += js;
 	}
 
-	public String getJavaScript() {
-		return javaScript;
+	public String deleteJavaScript() {
+		String res = javaScript;
+		javaScript = "";
+		return res;
 	}
 }

@@ -107,7 +107,7 @@ public class AppFilter implements Filter {
 			} else {
 				js = "alert('hiba')";
 			}
-			js = ctx.getJavaScript();
+			js = ctx.deleteJavaScript();
 			System.out.println(js);
 			response.getOutputStream().write(js.getBytes());
 		}
