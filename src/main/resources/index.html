@@ -15,7 +15,8 @@
 
 <script>
 	jQuery(document).ready(function($) {
-		ajaxEval("event?type=init");	
+		ajaxEval("event?type=init");
+		$('body').waiting('done');
 	});
 
 	function click(o, cid) {
@@ -28,12 +29,14 @@
 	}
 
 	function ajaxEval(url) {
-		$('body').waiting();
+		
+		ttInterval = setTimeout(function() { $('body').waiting(); }, 400);
 		$.ajax({
 			url : url
 		}).done(function(data) {
 			eval(data);
 			$('body').waiting('done');
+			if (typeof(ttInterval) != "undefined") clearInterval(ttInterval);
 		}).fail(function(jqXHR, textStatus ) {
 			alert(jqXHR.responseText);
 		});

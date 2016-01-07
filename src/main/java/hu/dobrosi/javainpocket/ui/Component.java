@@ -164,7 +164,7 @@ public abstract class Component {
 
 	public void setVisible(boolean visible) {
 		// JQueryBuilder.call(null, this, visible ? "show" : "hide");
-		JQueryBuilder.call(null, this, "parent().css", "visibility", visible ? "visible" : "hidden");
+		JQueryBuilder.call(null, this, "css", "visibility", visible ? "visible" : "hidden");
 		this.visible = visible;
 	}
 }

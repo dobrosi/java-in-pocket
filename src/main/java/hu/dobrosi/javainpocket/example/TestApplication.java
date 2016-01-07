@@ -50,6 +50,12 @@ public class TestApplication implements Application {
 		label2.setWidth("150px");
 		
 		button.addClickListener(l -> {
+			try {
+				Thread.sleep(2000);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			label.setCaption(textField.getValue());
 			label.setBackgroundColor("gray");
 			label.setTextColor("white");
