@@ -16,6 +16,8 @@ public class Image extends Component {
 
 	public void setUrl(String url) {
 		css("background-image", "url('" + url + "')");
+		css("background-repeat", "no-repeat");
+		css("background-position", "center");
 		this.url = url;
 	}
 
