@@ -7,7 +7,7 @@ public class Image extends Component {
 
 	public Image(String url) {
 		super();
-		this.url = url;
+		setUrl(url);
 	}
 
 	public String getUrl() {
@@ -15,11 +15,12 @@ public class Image extends Component {
 	}
 
 	public void setUrl(String url) {
+		css("background-image", "url('" + url + "')");
 		this.url = url;
 	}
 
 	@Override
 	public void create() {
-		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div><img id='" + getId() + "' src='" + getUrl() + "'></img></div>");
+		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div id='" + getId() + "' src='" + getUrl() + "'></div>");
 	}
 }

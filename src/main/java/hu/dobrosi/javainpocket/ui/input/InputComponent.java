@@ -58,7 +58,7 @@ public abstract class InputComponent<T> extends Component {
 	}
 
 	public void addChangeListener(ChangeListener changeListener) {
-		JQueryBuilder.call(null, this, "change", new Function("o", "change(o, " + getId() + ");"));
+		JQueryBuilder.call(null, this, "change", new Function("o", "change(o, \"" + getId() + "\");"));
 		changeListeners.add(changeListener);
 	}
 

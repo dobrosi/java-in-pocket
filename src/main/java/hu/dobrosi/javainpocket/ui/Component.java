@@ -59,7 +59,7 @@ public abstract class Component {
 		JQueryBuilder.call(null, component, "appendTo", this);
 
 		if (component instanceof InputComponent) {
-			JQueryBuilder.call(null, this, "change", new Function("o", "change(o,\"" + component.getId() + "\");"));
+			JQueryBuilder.call(null, component, "change", new Function("o", "change(o,\"" + component.getId() + "\");"));
 		}
 
 		if (this instanceof Panel) {
