@@ -18,14 +18,12 @@ public class JQueryBuilder {
 		int i = 0;
 		for (Object arg : args) {
 			if (arg instanceof Component) {
-				res += "\"" + getSelector((Component) arg) + "\"";
+				res += getQuery(getSelector((Component) arg));
 			} else if (arg instanceof Function) {
 				Function f = (Function) arg;
 				res += "function(" + f.getArgumentPart() + " ){" + f.getBody() + "}";
 			} else if (arg instanceof String) {
 				res += "\"" + arg + "\"";
-			} else if (arg instanceof String) {
-				res += arg;
 			} else {
 				res += arg;
 			}
@@ -47,7 +45,7 @@ public class JQueryBuilder {
 		return call(null, object, "css", name, value);
 	}
 
-	private static String getQuery(String selector) {
+	public static String getQuery(String selector) {
 		return "$(\"" + selector + "\")";
 	}
 

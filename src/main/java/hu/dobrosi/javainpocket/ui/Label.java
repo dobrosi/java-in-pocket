@@ -3,24 +3,29 @@ package hu.dobrosi.javainpocket.ui;
 import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
 
 public class Label extends Component {
-	private String caption;
+	private String value;
 
-	public Label(String caption) {
+	public Label(String value) {
 		super();
-		setCaption(caption);
+		this.value = value;
+		init();
 	}
 
-	public String getCaption() {
-		return caption;
+	public String getValue() {
+		return value;
 	}
 
-	public void setCaption(String caption) {
-		JQueryBuilder.call(null, this, "html", caption);
-		this.caption = caption;
+	public void setValue(String value) {
+		JQueryBuilder.call(null, this, "html", value);
+		this.value = value;
 	}
 
 	@Override
 	public void create() {
-		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div><p id='" + getId() + "'>" + getCaption() + "</p></div>");
+		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<label id='" + getId() + "'>" + getValue() + "</label>");
+	}
+
+	public void setFor(String name) {
+		JQueryBuilder.call(null, this, "attr", "for", name);
 	}
 }

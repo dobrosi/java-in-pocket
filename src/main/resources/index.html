@@ -14,6 +14,20 @@
 <script src="dist/jquery.waiting.min.js"></script>
 
 <script>
+	$.fn.insertIndex = function (p, i) {
+	    // The element we want to swap with
+	    var $target = p.children().eq(i);
+	
+	    // Determine the direction of the appended index so we know what side to place it on
+	    if (this.index() > i) {
+	        $target.before(this);
+	    } else {
+	        $target.after(this);
+	    }
+	
+	    return this;
+	};
+	
 	jQuery(document).ready(function($) {
 		ajaxEval("event?type=init");
 		$('body').waiting('done');
@@ -25,7 +39,7 @@
 
 	function change(o, cid) {
 		ajaxEval("event?type=change&cid=" + cid + "&newValue="
-				+ encodeURIComponent($("#" + cid).val()));
+				+ encodeURIComponent($("#input_" + cid).val()));
 	}
 
 	function ajaxEval(url) {

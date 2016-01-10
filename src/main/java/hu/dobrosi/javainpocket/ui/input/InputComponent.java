@@ -18,33 +18,49 @@ public abstract class InputComponent<T> extends Component {
 
 	private boolean enable;
 
+	protected Object labelId;
+
+	protected Object inputId;
+
 	public InputComponent() {
 		super();
 	}
 
-	@Override
-	public void create() {
-		Object v = this.getValue() == null ? "" : this.getValue();
-		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<input id='" + this.getId() + "' type='" + getInputComponenType() + "' value='" + v + "'></input>");
-	}
-
-	public abstract String getInputComponenType();
 
 	public InputComponent(String caption) {
-		this();
-		setCaption(caption);
+		this(caption, null);
 	}
 
 	public InputComponent(String caption, T defaultValue) {
-		this(caption);
-		setValue(defaultValue);
+		this();
+		this.caption = caption;
+		this.value = defaultValue;
+		init();
 	}
+
+	
+	@Override
+	public void create() {
+		Object v = this.getValue() == null ? "" : this.getValue();
+		String name = "name_" + getId();
+		labelId = "label_" + getId();
+		inputId = "input_" + getId();
+		if(getCaption() != null) {
+			JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div id='" + this.getId() + "' data-role='fieldcontain'><label id='" + labelId + "' for='" + name + "'>" +  getCaption() + "</label><input id='" + inputId + "' name='" + name + "' type='" + getInputComponenType() + "' value='" + v + "'></input></div>");
+		} else {
+			inputId = getId();
+			JQueryBuilder.call("o", "$('#nullPanel')", "append", "<input id='" + inputId + "' name='" + name + "' type='" + getInputComponenType() + "' value='" + v + "'></input>");
+		}
+	}
+
+	public abstract String getInputComponenType();
 
 	public String getCaption() {
 		return caption;
 	}
 
 	public void setCaption(String caption) {
+		JQueryBuilder.call(null, JQueryBuilder.getQuery("#" + labelId), "html", caption);
 		this.caption = caption;
 	}
 
@@ -53,12 +69,12 @@ public abstract class InputComponent<T> extends Component {
 	}
 
 	public void setValue(T value) {
-		JQueryBuilder.call(null, this, "val", value);
+		JQueryBuilder.call(null, JQueryBuilder.getQuery("#" + inputId), "val", value);
 		this.value = value;
 	}
 
 	public void addChangeListener(ChangeListener changeListener) {
-		JQueryBuilder.call(null, this, "change", new Function("o", "change(o, \"" + getId() + "\");"));
+		JQueryBuilder.call(null, this, "change", new Function("o", "change(o, \"" + JQueryBuilder.getQuery("#" + inputId) + "\");"));
 		changeListeners.add(changeListener);
 	}
 

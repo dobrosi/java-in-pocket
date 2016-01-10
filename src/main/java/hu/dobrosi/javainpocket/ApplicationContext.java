@@ -6,7 +6,7 @@ import java.util.Map;
 import hu.dobrosi.javainpocket.ui.Component;
 
 public class ApplicationContext {
-	public Map<String, Component> components = new HashMap<>();
+	public Map<String, Component> components;
 	private String javaScript;
 
 	public void appendJavaScript(String js) {
@@ -17,5 +17,10 @@ public class ApplicationContext {
 		String res = javaScript;
 		javaScript = "";
 		return res;
+	}
+
+	public void init() {
+		components = new HashMap<>();
+		javaScript = "";
 	}
 }

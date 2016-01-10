@@ -26,6 +26,7 @@ public class ListView extends Component {
 
 	public ListView() {
 		super();
+		init();
 	}
 
 	public Item addItem(String value) {

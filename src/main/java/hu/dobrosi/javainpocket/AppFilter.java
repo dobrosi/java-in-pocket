@@ -49,6 +49,7 @@ public class AppFilter implements Filter {
 				resource(uri, context, response);
 			}
 		} catch (Exception exception) {
+			exception.printStackTrace();
 			response.getOutputStream().write(("error('" + exception.getLocalizedMessage() + "');").getBytes());
 		}
 	}
@@ -83,6 +84,7 @@ public class AppFilter implements Filter {
 
 			String js;
 			if ("init".equals(type)) {
+				ctx.init();
 				Panel contentPanel = new Panel(Layout.FIX_POSITION) {
 					@Override
 					public Object getId() {

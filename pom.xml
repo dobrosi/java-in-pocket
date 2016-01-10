@@ -6,7 +6,7 @@
 	<artifactId>java-in-pocket</artifactId>
 	<version>0.2.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Jetty HelloWorld</name>
+	<name>Java in pocket</name>
 
 	<properties>
 		<jettyVersion>9.3.6.v20151106</jettyVersion>
@@ -40,6 +40,18 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.0-b01</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>${jettyVersion}</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jettyVersion}</version>
 		</dependency>
 	</dependencies>
 

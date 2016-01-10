@@ -7,6 +7,7 @@ public class Image extends Component {
 
 	public Image(String url) {
 		super();
+		init();
 		setUrl(url);
 	}
 
@@ -23,6 +24,6 @@ public class Image extends Component {
 
 	@Override
 	public void create() {
-		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div id='" + getId() + "' src='" + getUrl() + "'></div>");
+		JQueryBuilder.call("o", "$('#nullPanel')", "append", "<div id='" + getId() + "'></div>");
 	}
 }

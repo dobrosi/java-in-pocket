@@ -9,10 +9,11 @@ public class Panel extends Component {
 		FIX_POSITION, HORIZONTAL, VERTICAL
 	}
 
-	private Layout layout;
+	private Layout layout = Layout.VERTICAL;
 
 	public Panel() {
-		this(Layout.VERTICAL);
+		super();
+		init();
 	}
 
 	public Panel(Component... components) {
@@ -21,7 +22,7 @@ public class Panel extends Component {
 	}
 
 	public Panel(Layout layout, Component... components) {
-		super();
+		this();
 		setLayout(layout);
 
 		Arrays.asList(components).forEach(c -> this.addComponent(c));

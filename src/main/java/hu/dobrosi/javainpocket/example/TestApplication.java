@@ -17,6 +17,7 @@ public class TestApplication implements Application {
 	public void onLoad(Panel contentPanel) {
 
 		Label label = new Label("Test label");
+
 		TextField textField = new TextField("Test input", "Test input value");
 		PasswordField passwordField = new PasswordField("Test input");
 		Button button = new Button("Send");
@@ -25,14 +26,13 @@ public class TestApplication implements Application {
 		Button button3 = new Button("Enable");
 		Button button4 = new Button("Disable");
 		ListView listView = new ListView();
-		
+
 		Label label1 = new Label("Label1");
 		Label label2 = new Label("Label2");
 
-
 		Panel mainPanel = new Panel(Layout.HORIZONTAL, label2);
-		//mainPanel.addComponent(label1);
-			
+		// mainPanel.addComponent(label1);
+
 		contentPanel.addComponent(label);
 		contentPanel.addComponent(mainPanel);
 		contentPanel.addComponent(textField);
@@ -43,12 +43,11 @@ public class TestApplication implements Application {
 		contentPanel.addComponent(button3);
 		contentPanel.addComponent(button4);
 		contentPanel.addComponent(listView);
-		
-		
+
 		mainPanel.setWidth("500px");
 		label1.setWidth("150px");
 		label2.setWidth("150px");
-		
+
 		button.addClickListener(l -> {
 			try {
 				Thread.sleep(2000);
@@ -56,14 +55,14 @@ public class TestApplication implements Application {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			label.setCaption(textField.getValue());
+			label.setValue(textField.getValue());
 			label.setBackgroundColor("gray");
 			label.setTextColor("white");
 			Browser.setTitle("Test application " + new Date());
-			
+
 			mainPanel.addComponent(label1);
 		});
-		
+
 		button1.addClickListener(l -> textField.setVisible(true));
 		button2.addClickListener(l -> textField.setVisible(false));
 		button3.addClickListener(l -> {
@@ -76,11 +75,11 @@ public class TestApplication implements Application {
 			button.setEnable(false);
 			label1.setVisible(false);
 		});
-		
+
 		listView.addItem("Alpha");
 		listView.addItem("Beta");
 		listView.addItem("<b>Gamma</b><p>test</p>");
 		listView.addItem("Delta");
-		listView.addItem("Omega");		
+		listView.addItem("Omega");
 	}
 }

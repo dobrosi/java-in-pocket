@@ -31,7 +31,7 @@ public abstract class Component {
 
 	private boolean visible;
 
-	public Component() {
+	protected void init() {
 		ApplicationContextProvider.get().components.put(getId().toString(), this);
 		create();
 	}
@@ -40,6 +40,10 @@ public abstract class Component {
 
 	public Object getId() {
 		return "c" + hashCode();
+	}
+	
+	public String getSelector() {
+		return JQueryBuilder.getSelector(this);
 	}
 
 	protected Component getParent() {
@@ -51,12 +55,23 @@ public abstract class Component {
 	}
 
 	public void addComponent(Component component) {
+		addComponent(0, component);
+	}
+
+	public void addComponent(int index, Component component) {
+		components.add(index, component);
+
 		if (component.getParent() != null) {
 			throw new RuntimeException("This component has already other parent.");
 		}
 
-		JQueryBuilder.call("o", "$('#nullPanel')", "detach", component);
-		JQueryBuilder.call(null, component, "appendTo", this);
+		JQueryBuilder.call("o", "$('#nullPanel')", "detach", component.getSelector());
+		//JQueryBuilder.call(null, component, "appendTo", this);
+		if(index > 0) {
+			JQueryBuilder.call(null, component, "insertIndex", this.getSelector(), index);
+		} else {
+			JQueryBuilder.call(null, component, "appendTo", this.getSelector());
+		}
 
 		if (component instanceof InputComponent) {
 			JQueryBuilder.call(null, component, "change", new Function("o", "change(o,\"" + component.getId() + "\");"));
@@ -73,14 +88,6 @@ public abstract class Component {
 
 		JQueryBuilder.call(null, this, "trigger", "create");
 		component.setParent(this);
-		components.add(component);
-	}
-
-	public void css(String name, String value) {
-		JQueryBuilder.css(this, name, value);
-	}
-
-	public void addComponent(int index, Component component) {
 		components.add(index, component);
 	}
 
@@ -104,6 +111,10 @@ public abstract class Component {
 
 	public void onClick(ClickEvent clickEvent) {
 		clickListeners.forEach(cl -> cl.onClick(clickEvent));
+	}
+
+	public void css(String name, String value) {
+		JQueryBuilder.css(this, name, value);
 	}
 
 	public String getBackgroundColor() {
@@ -164,7 +175,7 @@ public abstract class Component {
 
 	public void setVisible(boolean visible) {
 		// JQueryBuilder.call(null, this, visible ? "show" : "hide");
-		JQueryBuilder.call(null, this, "css", "visibility", visible ? "visible" : "hidden");
+		JQueryBuilder.call(null, this, "css", "display", visible ? "block" : "none");
 		this.visible = visible;
 	}
 }
