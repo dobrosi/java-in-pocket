@@ -1,8 +1,9 @@
-package hu.dobrosi.javainpocket.ui;
+package hu.dobrosi.javainpocket.ui.panel;
 
 import java.util.Arrays;
 
 import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
+import hu.dobrosi.javainpocket.ui.Component;
 
 public class Panel extends Component {
 	public enum Layout {

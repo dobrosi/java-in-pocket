@@ -20,8 +20,8 @@ import org.apache.commons.io.IOUtils;
 import org.reflections.Reflections;
 
 import hu.dobrosi.javainpocket.ui.Component;
-import hu.dobrosi.javainpocket.ui.Panel;
-import hu.dobrosi.javainpocket.ui.Panel.Layout;
+import hu.dobrosi.javainpocket.ui.panel.Panel;
+import hu.dobrosi.javainpocket.ui.panel.Panel.Layout;
 import hu.dobrosi.javainpocket.ui.input.InputComponent;
 import hu.dobrosi.javainpocket.ui.listener.ChangeEvent;
 import hu.dobrosi.javainpocket.ui.listener.ClickEvent;
@@ -58,6 +58,9 @@ public class AppFilter implements Filter {
 		System.out.println(uri);
 		if (uri.replace("/", "").equals("")) {
 			uri = "index.html";
+		}
+		if(uri.charAt(0) == '/') {
+			uri = uri.substring(1);
 		}
 		InputStream resourceContent = this.getClass().getClassLoader().getResourceAsStream(uri);
 		try {

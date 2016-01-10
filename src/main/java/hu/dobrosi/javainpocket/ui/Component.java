@@ -9,6 +9,7 @@ import hu.dobrosi.javainpocket.javascript.JQueryBuilder;
 import hu.dobrosi.javainpocket.ui.input.InputComponent;
 import hu.dobrosi.javainpocket.ui.listener.ClickEvent;
 import hu.dobrosi.javainpocket.ui.listener.ClickListener;
+import hu.dobrosi.javainpocket.ui.panel.Panel;
 
 public abstract class Component {
 	private Component parent;

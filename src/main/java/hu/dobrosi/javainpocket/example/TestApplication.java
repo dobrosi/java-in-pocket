@@ -6,8 +6,9 @@ import hu.dobrosi.javainpocket.Application;
 import hu.dobrosi.javainpocket.javascript.Browser;
 import hu.dobrosi.javainpocket.ui.Label;
 import hu.dobrosi.javainpocket.ui.ListView;
-import hu.dobrosi.javainpocket.ui.Panel;
-import hu.dobrosi.javainpocket.ui.Panel.Layout;
+import hu.dobrosi.javainpocket.ui.panel.MapPanel;
+import hu.dobrosi.javainpocket.ui.panel.Panel;
+import hu.dobrosi.javainpocket.ui.panel.Panel.Layout;
 import hu.dobrosi.javainpocket.ui.input.Button;
 import hu.dobrosi.javainpocket.ui.input.PasswordField;
 import hu.dobrosi.javainpocket.ui.input.TextField;
@@ -31,7 +32,10 @@ public class TestApplication implements Application {
 		Label label2 = new Label("Label2");
 
 		Panel mainPanel = new Panel(Layout.HORIZONTAL, label2);
-		// mainPanel.addComponent(label1);
+		MapPanel map = new MapPanel();
+
+		map.setWidth("100%");
+		map.setHeight("400px");
 
 		contentPanel.addComponent(label);
 		contentPanel.addComponent(mainPanel);
@@ -43,6 +47,7 @@ public class TestApplication implements Application {
 		contentPanel.addComponent(button3);
 		contentPanel.addComponent(button4);
 		contentPanel.addComponent(listView);
+		contentPanel.addComponent(map);
 
 		mainPanel.setWidth("500px");
 		label1.setWidth("150px");
