@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>hu.dobrosi</groupId>
 	<artifactId>java-in-pocket</artifactId>
-	<version>0.2.1-SNAPSHOT</version>
+	<version>0.2.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Java in pocket</name>
 
